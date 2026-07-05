@@ -1,0 +1,6 @@
+Contact: mailto:modelriskgroup@gmail.com
+Expires: 2027-07-04T00:00:00.000Z
+Preferred-Languages: en
+Policy: https://example.invalid/privacy.html
+# Replace the Policy URL with the live privacy page URL once the domain is set.
+# We welcome good-faith security reports and will respond promptly.
