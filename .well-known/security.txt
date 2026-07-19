@@ -1,6 +1,6 @@
 Contact: mailto:modelriskgroup@gmail.com
 Expires: 2027-07-04T00:00:00.000Z
 Preferred-Languages: en
-Policy: https://example.invalid/privacy.html
-# Replace the Policy URL with the live privacy page URL once the domain is set.
+Canonical: https://joinverant.github.io/.well-known/security.txt
+Policy: https://joinverant.github.io/privacy.html
 # We welcome good-faith security reports and will respond promptly.

@@ -7,6 +7,22 @@
 (function () {
   "use strict";
 
+  /* ---------- frame-guard (anti-clickjacking) ---------- */
+  // This page is never meant to run inside a third-party frame. On GitHub Pages
+  // the anti-framing HTTP header (X-Frame-Options / frame-ancestors) is dropped,
+  // so enforce it here too. No-op for normal top-level visitors.
+  try {
+    if (window.self !== window.top) {
+      // Same-origin (or accessible) parent: break out by taking over the top window.
+      window.top.location.href = window.self.location.href;
+    }
+  } catch (e) {
+    // Cross-origin frame blocked access to window.top — can't break out, so
+    // neutralize this page instead so it can't be used as a clickjacking overlay.
+    document.documentElement.style.display = "none";
+    throw new Error("Verant: refusing to run in a frame");
+  }
+
   // Signal that JS is live — CSS only hides reveal elements under html.js,
   // so a no-JS visit renders the full page.
   document.documentElement.classList.add("js");
@@ -122,32 +138,6 @@
     });
   });
 
-  /* ---------- subtle 3D tilt on telemetry panels ---------- */
-  if (!reduce && window.matchMedia("(hover: hover)").matches) {
-    document.querySelectorAll(".panel").forEach(function (el) {
-      el.addEventListener("pointermove", function (ev) {
-        var r = el.getBoundingClientRect();
-        var rx = ((ev.clientY - r.top) / r.height - 0.5) * -5;
-        var ry = ((ev.clientX - r.left) / r.width - 0.5) * 5;
-        el.style.transform = "perspective(900px) rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg)";
-      });
-      el.addEventListener("pointerleave", function () { el.style.transform = ""; });
-    });
-  }
-
-  /* ---------- magnetic buttons ---------- */
-  if (!reduce && window.matchMedia("(hover: hover)").matches) {
-    document.querySelectorAll(".btn").forEach(function (el) {
-      el.addEventListener("pointermove", function (ev) {
-        var r = el.getBoundingClientRect();
-        var dx = (ev.clientX - (r.left + r.width / 2)) * 0.12;
-        var dy = (ev.clientY - (r.top + r.height / 2)) * 0.22;
-        el.style.transform = "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px)";
-      });
-      el.addEventListener("pointerleave", function () { el.style.transform = ""; });
-    });
-  }
-
   /* ---------- click ripple + haptics ---------- */
   function haptic(ms) {
     if (navigator.vibrate) { try { navigator.vibrate(ms); } catch (e) { /* unsupported */ } }
@@ -167,15 +157,6 @@
     btn.appendChild(rip);
     setTimeout(function () { rip.remove(); }, 650);
   }, { passive: true });
-
-  /* ---------- ticker: duplicate children once for the seamless -50% loop ---------- */
-  var track = document.querySelector(".ticker-track");
-  if (track && !track.hasAttribute("data-dup")) {
-    track.setAttribute("data-dup", "1");
-    Array.prototype.slice.call(track.children).forEach(function (n) {
-      track.appendChild(n.cloneNode(true));
-    });
-  }
 
   /* ---------- FAQ smooth open/close ---------- */
   document.querySelectorAll(".faq details").forEach(function (det) {
@@ -213,99 +194,4 @@
       }
     });
   });
-
-  /* ---------- hero telemetry canvas ---------- */
-  var canvas = document.getElementById("telemetry");
-  if (canvas && !reduce && canvas.getContext) {
-    var ctx = canvas.getContext("2d");
-    var W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
-    var running = true, tPrev = 0, phase = 0;
-
-    function resize() {
-      var r = canvas.parentElement.getBoundingClientRect();
-      W = Math.max(1, Math.round(r.width));
-      H = Math.max(1, Math.round(r.height));
-      canvas.width = W * dpr; canvas.height = H * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-    resize();
-    window.addEventListener("resize", resize);
-
-    // trace definitions: [baseline%, amplitude, wavelength, speed, color, width]
-    var traces = [
-      [0.34, 26, 340, 0.55, "rgba(111,163,224,0.50)", 1.6],
-      [0.52, 40, 520, 0.35, "rgba(47,109,180,0.38)", 1.4],
-      [0.70, 18, 240, 0.80, "rgba(224,138,60,0.42)", 1.4]
-    ];
-
-    function noiseY(tr, x, t) {
-      var b = H * tr[0];
-      return b
-        + Math.sin((x + t * 60 * tr[3]) / tr[2] * Math.PI * 2) * tr[1]
-        + Math.sin((x * 0.37 + t * 90 * tr[3]) / tr[2] * Math.PI * 2) * tr[1] * 0.45
-        + Math.sin((x * 1.93 - t * 40 * tr[3]) / tr[2] * Math.PI * 2) * tr[1] * 0.18;
-    }
-
-    function draw(t) {
-      if (!running) return;
-      requestAnimationFrame(draw);
-      if (t - tPrev < 1000 / 40) return; // ~40fps cap
-      tPrev = t;
-      phase = t / 1000;
-      ctx.clearRect(0, 0, W, H);
-
-      // survey grid
-      ctx.strokeStyle = "rgba(255,255,255,0.045)";
-      ctx.lineWidth = 1;
-      var gs = 72;
-      ctx.beginPath();
-      for (var gx = 0.5; gx < W; gx += gs) { ctx.moveTo(gx, 0); ctx.lineTo(gx, H); }
-      for (var gy = 0.5; gy < H; gy += gs) { ctx.moveTo(0, gy); ctx.lineTo(W, gy); }
-      ctx.stroke();
-
-      // traces
-      traces.forEach(function (tr) {
-        ctx.strokeStyle = tr[4];
-        ctx.lineWidth = tr[5];
-        ctx.beginPath();
-        for (var x = 0; x <= W; x += 6) {
-          var y = noiseY(tr, x, phase);
-          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-      });
-
-      // sweep line
-      var sx = ((phase * 90) % (W + 240)) - 120;
-      var grad = ctx.createLinearGradient(sx - 90, 0, sx, 0);
-      grad.addColorStop(0, "rgba(224,138,60,0)");
-      grad.addColorStop(1, "rgba(224,138,60,0.14)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(sx - 90, 0, 90, H);
-      ctx.fillStyle = "rgba(224,138,60,0.35)";
-      ctx.fillRect(sx, 0, 1.2, H);
-
-      // markers riding trace 0
-      ctx.fillStyle = "rgba(240,168,98,0.9)";
-      var mx = (sx + W) % W;
-      var my = noiseY(traces[0], mx, phase);
-      ctx.beginPath(); ctx.arc(mx, my, 3, 0, Math.PI * 2); ctx.fill();
-    }
-    requestAnimationFrame(draw);
-
-    // pause offscreen / hidden tab
-    var vio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        var was = running;
-        running = e.isIntersecting && !document.hidden;
-        if (running && !was) requestAnimationFrame(draw);
-      });
-    }, { threshold: 0.05 });
-    vio.observe(canvas);
-    document.addEventListener("visibilitychange", function () {
-      var was = running;
-      running = !document.hidden;
-      if (running && !was) requestAnimationFrame(draw);
-    });
-  }
 })();
