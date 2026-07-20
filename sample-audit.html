@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="dark">
-<title>Sample Audit — Verant</title>
-<meta name="description" content="A worked example of a Verant AI opportunity audit: the opportunity matrix, provenance-tagged figures, and the 90-day roadmap.">
+<title>Sample Audit &middot; Verant</title>
+<meta name="description" content="An illustrative example of a Verant AI opportunity audit: what the deliverable contains, a sample opportunity table, and the 90-day roadmap. Not a real client's data.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230E1621'/%3E%3Cpath d='M14 16 32 50 50 16' stroke='%234C7FB8' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/main.css">
 <link rel="stylesheet" href="assets/logo.css">
@@ -32,84 +32,89 @@
   <div class="wrap">
     <span class="kicker">Sample deliverable</span>
     <h1 class="rv">What an audit actually looks like.</h1>
-    <p class="lead rv">We&rsquo;re a new firm, so we&rsquo;ll say this plainly: the extract below is a <b>worked example we built</b> &mdash; not a disguised client. It shows the exact format and rigor you&rsquo;ll get: every task mapped to a specific fix, every dollar figure a conservative range, every number tagged with where it came from.</p>
-    <div class="hero-meta rv mt-l">
-      <span><b>PROFILE:</b> HYPOTHETICAL OIL &amp; GAS OPERATOR &middot; ~45 STAFF</span>
-      <span><b>STATUS:</b> WORKED EXAMPLE &mdash; NOT A REAL CLIENT</span>
+    <p class="lead rv">This is an illustrative example, not a real client&rsquo;s data. We built it to show the format and the rigor you get: every task mapped to a specific fix, every dollar figure a conservative range, and every number tagged with where it came from. The operation below is a made-up mid-size producer with about 45 staff.</p>
+  </div>
+</section>
+
+<section class="sect sect-paper survey">
+  <div class="wrap">
+    <span class="kicker">What&rsquo;s in the deliverable</span>
+    <h2 class="h-lg rv">One document, four parts.</h2>
+    <p class="lead mt-m rv maxw-76">The audit is a single report, not a slide deck. It has four parts, and they always come in the same order.</p>
+    <div class="steps stagger mt-l">
+      <div class="step"><div class="sn">PART 01</div><h4>Executive summary</h4><p>The conservative headline number and a short read on your operation, so you can see the bottom line before the detail.</p></div>
+      <div class="step"><div class="sn">PART 02</div><h4>The opportunity table</h4><p>Each manual task, the specific AI fix for it, what it is worth per year, the hours it frees, and where the figure came from.</p></div>
+      <div class="step"><div class="sn">PART 03</div><h4>Assumptions and math</h4><p>The workings behind each figure, the tools we picked with real pricing, and every assumption labeled so your engineers can check us.</p></div>
+      <div class="step"><div class="sn">PART 04</div><h4>The 90-day plan</h4><p>Quick wins first, then a phased rollout: what to build, what to buy, and what to skip. Yours to run, with us or without us.</p></div>
     </div>
   </div>
 </section>
 
+<div class="ruler" aria-hidden="true"></div>
+
 <section class="sect survey">
   <div class="wrap">
-    <span class="kicker">Section 2 of 8</span>
-    <h2 class="h-lg rv">The opportunity matrix.</h2>
-    <p class="lead mt-m rv maxw-76">Each row is one manual task, the specific AI fix for it, and what it&rsquo;s worth. <b>CLIENT</b> means the figure came from the client&rsquo;s own intake numbers; <b>EST</b> means it&rsquo;s our conservative estimate, flagged as such.</p>
+    <span class="kicker">Part 2, illustrative</span>
+    <h2 class="h-lg rv">The opportunity table.</h2>
+    <p class="lead mt-m rv maxw-76">Each row is one manual task, the AI fix for it, and what it is worth. The source column shows where the number came from: &ldquo;Client&rdquo; means it came from the operation&rsquo;s own intake figures, and &ldquo;Estimate&rdquo; means it is our conservative estimate, flagged as such. These five rows are illustrative, and the dollar figures are conservative ranges rather than a promise.</p>
 
     <div class="matrix-wrap rv">
       <table class="matrix">
         <thead>
-          <tr><th>#</th><th>Manual task today</th><th>AI fix</th><th>Hard $ / yr</th><th>Capacity</th><th>Provenance</th><th>Effort</th></tr>
+          <tr><th>#</th><th>Manual task today</th><th>AI fix</th><th>Hard $ / yr</th><th>Hours/wk freed</th><th>Source</th><th>Effort</th></tr>
         </thead>
         <tbody>
           <tr>
             <td class="rank">01</td>
-            <td><b>Field tickets re-keyed into ERP</b> by two techs, end of every shift</td>
-            <td>Photo/PDF ticket extraction &rarr; structured entry, human-approved</td>
-            <td><b>$2,400&ndash;$3,900</b></td>
-            <td>4&ndash;6 hrs/wk</td>
-            <td><span class="tag tag-src">CLIENT</span></td>
-            <td><span class="tag tag-hi">LOW</span></td>
+            <td>Field tickets re-keyed into the ERP by two techs at the end of every shift</td>
+            <td>Photo and PDF ticket extraction into structured entry, with a person approving each one</td>
+            <td>$2,400 to $3,900</td>
+            <td>4 to 6</td>
+            <td>Client</td>
+            <td>Low</td>
           </tr>
           <tr>
             <td class="rank">02</td>
-            <td><b>Compressor run-data reviewed weekly</b> in spreadsheets; failures caught late</td>
-            <td>Threshold + trend alerting on existing run data; early-warning digest</td>
-            <td><b>$1,800&ndash;$3,200</b></td>
-            <td>2 hrs/wk</td>
-            <td><span class="tag tag-med">EST</span></td>
-            <td><span class="tag tag-med">MED</span></td>
+            <td>Compressor run-data reviewed weekly in spreadsheets, so failures are caught late</td>
+            <td>Threshold and trend alerting on the run data you already collect, with an early-warning digest</td>
+            <td>$1,800 to $3,200</td>
+            <td>2</td>
+            <td>Estimate</td>
+            <td>Medium</td>
           </tr>
           <tr>
             <td class="rank">03</td>
-            <td><b>Regulatory filing drafts written from scratch</b> each cycle by ops manager</td>
-            <td>Draft generation from captured field data; manager reviews &amp; signs</td>
-            <td><b>$1,100&ndash;$1,600</b></td>
-            <td>3 hrs/wk</td>
-            <td><span class="tag tag-src">CLIENT</span></td>
-            <td><span class="tag tag-hi">LOW</span></td>
+            <td>Regulatory filing drafts written from scratch each cycle by the ops manager</td>
+            <td>Draft generation from captured field data, with the manager reviewing and signing</td>
+            <td>$1,100 to $1,600</td>
+            <td>3</td>
+            <td>Client</td>
+            <td>Low</td>
           </tr>
           <tr>
             <td class="rank">04</td>
-            <td><b>Vendor invoices matched to tickets by hand</b> in accounting</td>
-            <td>Automated invoice&harr;ticket matching with exception queue</td>
-            <td><b>$600&ndash;$700</b></td>
-            <td>1&ndash;2 hrs/wk</td>
-            <td><span class="tag tag-src">CLIENT</span></td>
-            <td><span class="tag tag-med">MED</span></td>
+            <td>Vendor invoices matched to tickets by hand in accounting</td>
+            <td>Automated invoice-to-ticket matching with an exception queue for the edge cases</td>
+            <td>$600 to $700</td>
+            <td>1 to 2</td>
+            <td>Client</td>
+            <td>Medium</td>
           </tr>
           <tr>
             <td class="rank">05</td>
-            <td><b>Dispatch calls summarized manually</b> for the daily ops report</td>
-            <td>Call transcription &rarr; auto-drafted ops summary, reviewed at stand-up</td>
-            <td><b>&mdash;</b></td>
-            <td>2 hrs/wk</td>
-            <td><span class="tag tag-med">EST</span></td>
-            <td><span class="tag tag-hi">LOW</span></td>
+            <td>Dispatch calls summarized manually for the daily ops report</td>
+            <td>Call transcription into an auto-drafted ops summary, reviewed at stand-up</td>
+            <td>Capacity only</td>
+            <td>2</td>
+            <td>Estimate</td>
+            <td>Low</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="statband stagger mt-l">
-      <div class="stat"><div class="num">$5.9&ndash;9.4k<span class="u">/yr</span></div><div class="lbl">Conservative hard-dollar total &mdash; cash spending that stops</div></div>
-      <div class="stat"><div class="num">12<span class="u">hrs/wk</span></div><div class="lbl">Capacity reclaimed &mdash; salaried hours redirected to real work</div></div>
-      <div class="stat"><div class="num">&lt;90<span class="u">days</span></div><div class="lbl">To implement the top three items, phased so the field never stops</div></div>
-    </div>
-
-    <div class="shield-foot rv mt-l">
-      <span class="k">HOW TO READ IT:</span> HARD $ = SPENDING THAT STOPS &middot; CAPACITY = HOURS FREED &middot; HEADLINE COUNTS HARD $ ONLY
-    </div>
+    <p class="lead mt-m rv maxw-76">Across these five rows, the conservative hard-dollar total lands around $5,900 to $9,400 a year, the cash spending that stops. On top of that, roughly 12 hours a week of salaried time is freed for other work. The top three items could be in place within 90 days, phased so the field never stops.</p>
+    <p class="rv maxw-76 note">How to read it: hard dollars are cash spending that stops, capacity is salaried hours freed for other work, and the headline number counts hard dollars only.</p>
   </div>
 </section>
 
@@ -118,16 +123,12 @@
 <section class="sect sect-paper survey">
   <div class="wrap">
     <div class="center">
-      <span class="kicker">The full deliverable</span>
-      <h2 class="h-lg rv">Eight sections. One decision-ready document.</h2>
-    </div>
-    <div class="steps stagger mt-l">
-      <div class="step"><div class="sn">SECTIONS 1&ndash;3</div><h4>Summary &amp; snapshot</h4><p>The conservative headline number, your operation&rsquo;s profile, and the full opportunity matrix with provenance tags on every figure.</p></div>
-      <div class="step"><div class="sn">SECTIONS 4&ndash;6</div><h4>The math, shown</h4><p>Per-opportunity workings, tool selections with real per-seat pricing, and the assumptions we made — labeled, so your engineers can check us.</p></div>
-      <div class="step"><div class="sn">SECTIONS 7&ndash;8</div><h4>The 90-day roadmap</h4><p>Quick wins first, phased rollout after, with what to build, what to buy, and what to skip. Yours to run — with us or without us.</p></div>
+      <span class="kicker">Get your own</span>
+      <h2 class="h-lg rv">Yours is built from your numbers.</h2>
+      <p class="lead mt-m rv">The example above uses invented figures. Your audit would run the same format on your operation, with every number traced to your intake and checked by a person before it reaches you.</p>
     </div>
     <div class="center mt-l">
-      <a href="https://tally.so/r/zxbQq8" target="_blank" rel="noopener noreferrer" class="btn btn-dark btn-lg">Get yours — book a discovery call <span class="arrow">&rarr;</span></a>
+      <a href="https://tally.so/r/zxbQq8" target="_blank" rel="noopener noreferrer" class="btn btn-dark btn-lg">Book a discovery call <span class="arrow">&rarr;</span></a>
     </div>
   </div>
 </section>
