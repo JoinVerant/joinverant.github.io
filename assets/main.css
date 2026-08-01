@@ -568,6 +568,64 @@ table.matrix{width:100%;border-collapse:collapse;font-size:13.5px;min-width:860p
   background:var(--w-25);color:transparent;border-radius:3px;user-select:none;
 }
 
+/* ============ PHONES (added) ============ */
+/* Nothing below 760px was being adjusted before, so phones kept desktop
+   spacing/sizes and content got clipped. These rules tighten spacing,
+   stack buttons, let wide bits wrap, and prevent horizontal overflow. */
+
+/* never let a long word or element force the page wider than the screen */
+h1,h2,h3,h4,p,li,summary,.etym-word,.tagline-big,.pr-l span,.chip{
+  overflow-wrap:break-word;word-break:break-word;
+}
+
+@media(max-width:600px){
+  .wrap{padding:0 18px;}
+  .sect{padding:68px 0;}
+
+  /* hero */
+  .hero{padding:92px 0 64px;min-height:auto;}
+  .hero h1{font-size:clamp(30px,8.5vw,42px);max-width:100%;margin-bottom:20px;}
+  .hero .lede{font-size:16.5px;margin-bottom:30px;}
+  .hero-eyebrow{margin-bottom:22px;}
+  .hero-meta{gap:16px;margin-top:34px;}
+
+  /* buttons stack full-width so they never spill off-screen */
+  .hero-cta,.closing-ctas{flex-direction:column;align-items:stretch;gap:12px;}
+  .hero-cta .btn,.closing-ctas .btn{width:100%;}
+  .btn-lg{height:54px;font-size:15.5px;padding:0 22px;}
+
+  /* headings */
+  .h-xl{font-size:clamp(30px,8vw,40px);}
+  .h-lg{font-size:clamp(26px,7vw,36px);}
+
+  /* feature rows + panels */
+  .frow+.frow{margin-top:56px;}
+  .panel{padding:22px 18px;}
+  .pl-top{flex-wrap:wrap;}
+  .chip{white-space:normal;}
+  .fr-text p{font-size:16px;}
+
+  /* stat band, steps, shields, pricing cards */
+  .stat{padding:30px 22px;}
+  .step{padding:28px 22px;}
+  .shield{padding:26px 20px;}
+  .shield-foot{padding:18px 20px;flex-direction:column;align-items:flex-start;}
+  .shield-foot a{margin-left:0;}
+  .tier{padding:28px 22px;}
+
+  /* our-name section */
+  .etym{margin:40px 0;}
+  .etym-cell{padding:28px 22px;}
+  .founders{padding:30px 24px;}
+  .tagline-big{margin-top:48px;letter-spacing:.16em;}
+
+  /* faq + footer */
+  .faq summary{font-size:17px;padding:22px 4px;}
+  .faq .ans{font-size:15.5px;}
+  .fwrap{flex-direction:column;gap:34px;}
+  .copy{flex-direction:column;gap:10px;margin-top:36px;}
+}
+
 /* ============ REDUCED MOTION ============ */
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto;}
