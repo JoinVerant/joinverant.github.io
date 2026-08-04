@@ -1,4 +1,4 @@
-Contact: mailto:modelriskgroup@gmail.com
+Contact: mailto:joinverant@gmail.com
 Expires: 2027-07-04T00:00:00.000Z
 Preferred-Languages: en
 Canonical: https://joinverant.github.io/.well-known/security.txt
